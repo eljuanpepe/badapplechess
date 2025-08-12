@@ -1,0 +1,24 @@
+{
+    "manifest_version": 3,
+    "name": "chess bad apple",
+    "version": "0.0.0",
+    "description": "Bad apple in chess.com",
+    "permissions": [
+        "storage"
+    ],
+    "host_permissions": ["*://*.chess.com/analysis"],
+    "content_scripts": [{
+        "matches": ["*://*.chess.com/analysis"],
+        "js": ["badapple.js"],
+        "run_at": "document_idle"
+    }],
+    "web_accessible_resources": [{
+        "resources": [
+            "frames/*.png",
+            "*.mp3"
+        ],
+        "matches": [
+            "*://*/*"
+        ]
+    }]
+}
