@@ -67,7 +67,7 @@ async function getImageBrigtness(imageSrc) {
     var ctx = canvas.getContext("2d");
     ctx.drawImage(img,0,0);
 
-    var imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    var imageData = ctx.getImageData(0,0,canvas.width,canvas.height);
     var data = imageData.data;
     var r,g,b;
 
