@@ -82,8 +82,11 @@ async function getImageBrigtness(imageSrc) {
     return values;
 }
 
+let playing = false
 async function play() {
-    playButton.removeEventListener("click", play)
+    if (playing) return
+    playing = true
+
     const audio = new Audio(audioUrl)
     const frames = getImages()
 
@@ -96,6 +99,7 @@ async function play() {
         ++frameIndex
         if (frameIndex >= frameCount) {
             clearInterval(interval)
+            playing = false
         }
     }, frameInterval)
 }
