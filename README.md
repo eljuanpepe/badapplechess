@@ -1,5 +1,3 @@
-<video width="320" height="240" controls>
-  <source src="https://github.com/eljuanpepe/badapplechess/raw/refs/heads/main/badapple.mp4" type="video/mp4">
-</video>
+https://github.com/user-attachments/assets/0888754a-9dd8-438a-abf2-19d9ab8e0602
 
 it does not pause
