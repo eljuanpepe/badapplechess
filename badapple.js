@@ -6,6 +6,7 @@ const framesPath = "frames/"
 const frameRate = 30
 const frameInterval = 1000 / frameRate
 const frameCount = 6572
+const frameSize = 8
 var buttonLabel = undefined
 const blackPixel = "bq"
 const whitePixel = "wk"
@@ -35,8 +36,8 @@ function clearBoard() {
 
 function prepareBoard() {
     clearBoard()
-    for (let i = 8; i >= 1; i--) {
-        for (let j = 1; j <= 8; j++) {
+    for (let i = frameSize; i >= 1; i--) {
+        for (let j = 1; j <= frameSize; j++) {
             let piece = document.createElement("div")
             piece.classList.add("piece", 'bq', `square-${j}${i}`)
             chessboard.appendChild(piece);
@@ -66,17 +67,16 @@ function getImages() {
     return urls
 }
 
-async function getImageBrigtness(imageSrc, canvas) {
+async function getImageBrigtness(imageSrc, ctx) {
     const img = new Image();
     img.crossOrigin = "anonymous";
     img.src = imageSrc;
 
     await img.decode()
 
-    var ctx = canvas.getContext("2d");
     ctx.drawImage(img,0,0);
 
-    var imageData = ctx.getImageData(0,0,canvas.width,canvas.height);
+    var imageData = ctx.getImageData(0,0,frameSize,frameSize);
     var data = imageData.data;
     const pixelCount = data.length / 4;
     var values = new Array(pixelCount)
@@ -96,12 +96,13 @@ async function calculateFrames() {
     let frames = new Array(frameCount)
     const images = getImages()
     var canvas = document.createElement("canvas");
-    canvas.width = 8;
-    canvas.height = 8;
+    canvas.width = frameSize;
+    canvas.height = frameSize;
+    var ctx = canvas.getContext("2d", { willReadFrequently: true });
 
     for (let i = 0; i < images.length; i++) {
         const image = images[i];
-        let frame = await getImageBrigtness(image, canvas)
+        let frame = await getImageBrigtness(image, ctx)
         frames[i] = frame
         buttonLabel.innerText = `Calculating frames (${i}/${frameCount})`
     }
